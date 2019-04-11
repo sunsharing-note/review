@@ -1,4 +1,8 @@
+## MVCC即多版本并发控制
+
 ```
+
+
 https://blog.csdn.net/u013252072/article/details/52912385
 1、MySQL的复制原理以及流程
 基本原理流程，3个线程以及之间的关联；
