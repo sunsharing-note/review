@@ -12,15 +12,15 @@ class Harbor_API:
         self.login_user = 'admin'
         self.login_password = 'Harbor12345'
         ## Harbor相关登录配置
-        self.login_url = 'https://172.19.2.124/login'
-        self.projects_url = 'https://172.19.2.124/api/projects'
-        self.repo_url = "https://172.19.2.124/api/repositories?project_id="
-        self.image_url = "https://172.19.2.124/api/repositories/"
+        self.login_url = 'https://xxx.xx.x.xxx/login'
+        self.projects_url = 'https://xxx.xx.x.xxx/api/projects'
+        self.repo_url = "https://xxx.xx.x.xxx/api/repositories?project_id="
+        self.image_url = "https://xxx.xx.x.xxx/api/repositories/"
         # "https://172.19.2.124/api/repositories/testrepo%2Fcentos/tags/
         self.headers = {
-            'Host':'172.19.2.124',
-            'Origin':'https://172.19.2.124',
-            'Referer':'https://172.19.2.124/harbor/sign-in',
+            'Host':'xxx.xx.x.xxx',
+            'Origin':'https://xxx.xx.x.xxx',
+            'Referer':'https://xxx.xx.x.xxx/harbor/sign-in',
             'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
         }
         self.data = { 'principal': self.login_user, 'password': self.login_password }
