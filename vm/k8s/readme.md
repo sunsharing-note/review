@@ -1,4 +1,4 @@
-#### Kubernetes主要由以下几个核心组件组成
+#### Kubernetes主要由以下几个核心组件组成 https://www.kubernetes.org.cn/daemonset
 
 * etcd保存了整个集群的状态
 * apiserver提供了资源操作的唯一入口，并提供认证、授权、访问控制、API注册和发现等机制
@@ -39,4 +39,10 @@
 10. secret Secret解决了密码、token、密钥等敏感数据的配置问题，而不需要把这些敏感数据暴露到镜像或者Pod Spec中。Secret可以以Volume或者环境变量的方式使用。Secret有三种类型：Service Account Opaque kubernetes.io/dockerconfigjson
 11. statefulset StatefulSet是为了解决有状态服务的问题,其应用场景包括稳定的持久化存储，即Pod重新调度后还是能访问到相同的持久化数据，基于PVC来实现  稳定的网络标志，即Pod重新调度后其PodName和HostName不变，基于Headless Service（即没有Cluster IP的Service）来实现  有序部署，有序扩展，即Pod是有顺序的，在部署或者扩展的时候要依据定义的顺序依次依次进行（即从0到N-1，在下一个Pod运行之前所有之前的Pod必须都是Running和Ready状态），基于init containers来实现  有序收缩，有序删除（即从N-1到0）.从上面的应用场景可以发现，StatefulSet由以下几个部分组成：用于定义网络标志（DNS domain）的Headless Service  用于创建PersistentVolumes的volumeClaimTemplates  定义具体应用的StatefulSet 注意：StatefulSet需要一个Headless Service来定义DNS domain，需要在StatefulSet之前创建好
 12. daemonset DaemonSet保证在每个Node上都运行一个容器副本，常用来部署一些集群的日志、监控或者其他系统管理应用。典型的应用包括：日志收集，比如fluentd，logstash等 系统监控，比如Prometheus Node Exporter，collectd，New Relic agent，Ganglia gmond等 系统程序，比如kube-proxy, kube-dns, glusterd, ceph等
-13. serviceaccount https://www.kubernetes.org.cn/daemonset
+13. serviceaccount Service account是为了方便Pod里面的进程调用Kubernetes API或其他外部服务而设计的。
+14. Security Context的目的是限制不可信容器的行为，保护系统和其他容器不受其影响。Kubernetes提供了三种配置Security Context的方法：Container-level Security Context：仅应用到指定的容器  Pod-level Security Context：应用到Pod内所有容器以及Volume  Pod Security Policies（PSP）：应用到集群内部所有Pod以及Volume
+15. 资源配额（Resource Quotas）是用来限制用户资源用量的一种机制。它的工作原理为资源配额应用在Namespace上，并且每个Namespace最多只能有一个ResourceQuota对象  开启计算资源配额后，创建容器时必须配置计算资源请求或限制（也可以用LimitRange设置默认值） 用户超额后禁止创建新的资源
+16. Network Policy提供了基于策略的网络控制，用于隔离应用并减少攻击面。
+17. Ingress就是为进入集群的请求提供路由规则的集合.Ingress可以给service提供集群外部访问的URL、负载均衡、SSL终止、HTTP路由等。
+18. ConfigMap用于保存配置数据的键值对，可以用来保存单个属性，也可以用来保存配置文件。
+19. HPA 可以根据CPU使用率或应用自定义metrics自动扩展Pod数量.支持三种metrics类型：预定义metrics（比如Pod的CPU）以利用率的方式计算  自定义的Pod metrics，以原始值（raw value）的方式计算  自定义的object metrics
