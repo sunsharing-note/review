@@ -14,6 +14,11 @@
 * 3.k8s 的 service 和 ep 是如何关联和相互影响的？
 * k8s会根据service关联到pod的podIP信息组合成一个endpoint。若service定义中没有selector字段，service被创建时，endpoint controller不会自动创建endpoint。
 * 4.详述 kube-proxy 原理，一个请求是如何经过层层转发落到某个 pod 上的整个过程。请求可能来自 pod 也可能来自外部？
+* kube-proxy其实就是管理service的访问入口，包括集群内Pod到Service的访问和集群外访问service。 k8s提供了两种方式进行服务发现：环境变量和DNS。kube-proxy当前实现了两种proxyMode：userspace和iptables。iptables mode因为使用iptable NAT来完成转发，也存在不可忽视的性能损耗。userspace:service的请求会先从用户空间进入内核iptables，然后再回到用户空间，由kube-proxy完成后端Endpoints的选择和代理工作，这样流量从用户空间进出内核带来的性能损耗是不可接受的。
 * 5.rc/rs 功能是怎么实现的？
+* ReplicaSet和 Replication Controller之间的唯一区别是现在的选择器支持。Replication Controller只支持基于等式的selector（env=dev或environment!=qa），但ReplicaSet还支持新的，基于集合的selector（version in (v1.0, v2.0)或env notin (dev, qa)）。在试用时官方推荐ReplicaSet。
 * 6.deployment/rs 有什么区别。其使用方式、使用条件和原理是什么？
+* 如果您想要滚动更新功能，请考虑使用Deployments。此外， rolling-update命令是必须的，而Deployments是声明式的，因此我们建议通过rollout命令使用Deployments。Deployments拥有并管理ReplicaSets。
 * 7.cgroup 中的 cpu 有哪几种限制方式。k8s 是如何使用实现 request 和 limit 的？
+* 在cgroup里面，跟CPU相关的子系统有cpusets、cpuacct和cpu。cpu.cfs_period_us & cpu.cfs_quota_us cpu.shares cpu.stat.
+* 目前CPU支持设置request和limit，memory只支持设置request， limit必须强制等于request。limits.cpu会被转换成docker的–cpu-quota参数，limits.memory会被转换成docker的–memory参数。
