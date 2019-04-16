@@ -22,3 +22,18 @@
 * 7.cgroup 中的 cpu 有哪几种限制方式。k8s 是如何使用实现 request 和 limit 的？
 * 在cgroup里面，跟CPU相关的子系统有cpusets、cpuacct和cpu。cpu.cfs_period_us & cpu.cfs_quota_us cpu.shares cpu.stat.
 * 目前CPU支持设置request和limit，memory只支持设置request， limit必须强制等于request。limits.cpu会被转换成docker的–cpu-quota参数，limits.memory会被转换成docker的–memory参数。
+* 8.如何在 Kubernetes 中实现负载均衡？
+* kube-proxy ingress
+* 9.如何实现 Kubernetes 自动化?
+* 日志 自我修复 弹性测试 常规审计 自动缩放 资源分配 容器资源限制
+* 10.Pod 亲和性作用是什么？
+* NodeSelector(定向调度)、NodeAffinity(Node亲和性)、PodAffinity(Pod亲和性)。
+* 11.你能举例说明何时使用 Init Container 么？
+* 当我们在运用一个服务之前，通常会做一些初始化的工作，而这些工作一般只需要运行一次，成功后就不再运行。特点：仅运行一次，成功后就会退出。 每个容器必须在成功执行完成后，系统才能继续执行下一个容器。 如果Init Container运行失败，kubernetes 将会重复重启Pod,直到Init Container 成功运行，但是如果 Pod的重启策略（restartPolicy）设置为Never,则Pod不会重启。 Init Container支持普通应用Container的所有参数，包括资源限制，挂载卷，安全设置等。但是Init Container 在资源的申请和限制上略有不同，同时，由于Init Container必须在Pod ready之前完成并退出，所以它不支持 readiness 探针。 Init Container 通常有如下应用方式：处于安全的考虑，可以将自定义的代码和工具使用Init Container运行，而不必添加到 应用 容器的镜像中；应用程序映像的构建和部署者角色可以彼此独立，无需共同构建单个应用程序映像；使用不同的Linux命名空间，可以使它们具有来自应用容器的不同文件系统权限。 因此，Init Container可以获得应用程序容器无法访问的Secrets；Init Container在任何应用程序容器启动之前运行完毕，而应用程序容器通常是并行运行的，因此初始容器提供了一种简单的方法来阻止或延迟应用程序容器的启动，直到满足一些前提条件。
+* 12.什么是 Kubernetes Operator？
+* Operator就是一系列应用程序特定的自定义控制器。允许用户编写的应用程序能够完整管理其他应用程序,Operator监控并且分析集群，同时基于一系列参数，触发一系列行为来达到所需状态。
+* 13.服务和 ingress 的作用是什么？
+* Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务
+* Ingress 是反向代理规则，用来规定 HTTP/S 请求应该被转发到哪个 Service 上，比如根据请求中不同的 Host 和 url 路径让请求落到不同的 Service 上
+* Ingress Controller 就是一个反向代理程序，它负责解析 Ingress 的反向代理规则，如果 Ingress 有增删改的变动，所有的 Ingress Controller 都会及时更新自己相应的转发规则，当 Ingress Controller 收到请求后就会根据这些规则将请求转发到对应的 Service。
+* 14.istio是一个专用的基础设施层，使得服务间的通信安全、高效和可靠
