@@ -41,9 +41,16 @@
 * 16.如何临时退出一个正在交互的容器的终端，而不终止它？
 * 按Ctrl+p，后按Ctrl+q，如果按Ctrl+c会使容器内的应用进程终止，进而会使容器终止。
 * 17.Docker的macvlan overlan
+* 当容器需要直连入物理网络时，可以使用Macvlan。有两种桥接模式:Bridge模式：不创建子接口的情况下直接去桥接物理接口。直接桥接到与宿主级的同网段。VLAN Bridge模式：创建子接口去桥接物理接口。可划分多个VLAN。
+* 创建：docker network create -d macvlan --subnet 192.168.29.0/24 --gateway 192.168.29.2 -o parent=ens33 -o macvlan_mode=bridge macnet 使用：docker run -id --net macnet --ip 192.168.29.7 --name tomcat1 tomcat sh
+* 特点：1.两个容器间互通 2.主机1与主机2的容器通 主机2与主机1的容器通 3.主机与其上的容器不通
+* overlay 网络驱动程序在多个 Docker 守护进程主机之间创建一个分布式网络。这个网络在允许容器连接并进行安全通信的主机专用网络之上（overlay 覆盖在上面）。Docker 透明地处理每个 Docker 守护进程与目标容器之间的数据包的路由。
+* 
 * 18.docker的隔离方式
 * Mount Namespace 提供磁盘挂载点和文件系统的隔离能力 IPC Namespace 提供进程间通信的隔离能力 Network Namespace 提供网络隔离能力 UTS Namespace 提供主机名隔离能力 PID Namespace 提供进程隔离能力 User Namespace 提供用户隔离能力
 * 19.Docker中的防火墙zone
+* 完全开放：--privileged=true 部分开放：--cap-add NET_ADMIN --cap-add NET_RAW
 * 20.docker volume
+* 如果要在容器之间共享数据，最好是使用 data container。Flocker：容器的分布式存储平台
 * 21.docker创建镜像方式
 * docker commit(已经运行的容器) docker build
