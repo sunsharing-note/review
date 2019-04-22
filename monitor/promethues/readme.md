@@ -1,0 +1,8 @@
+* prometheus是新一代的云原生监控系统,形成了基于中央化的规则计算、统一分析和告警的新模型。其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。
+* 长期趋势分析 对照分析 告警 故障分析与定位 数据可视化
+* Prometheus的优势: 易于管理 监控服务的内部运行状态 强大的数据模型 强大的查询语言PromQL 高效 可扩展 易于集成 可视化 开放性
+* node exporter:收集主机数据，向Prometheus提供标准格式的监控样本数据
+* exporter:将监控数据采集的端点通过HTTP服务的形式暴露给Prometheus Server
+* alertManager:在AlertManager中我们可以与邮件，Slack等等内置的通知方式进行集成，也可以通过Webhook自定义告警处理方式。AlertManager即Prometheus体系中的告警处理中心。
+* pushgateway:由于Prometheus数据采集基于Pull模型进行设计，因此在网络环境的配置上必须要让Prometheus Server能够直接与Exporter进行通信。 当这种网络需求无法直接满足时，就可以利用PushGateway来进行中转。可以通过PushGateway将内部网络的监控数据主动Push到Gateway当中。而Prometheus Server则可以采用同样Pull的方式从PushGateway中获取到监控数据。
+* 
