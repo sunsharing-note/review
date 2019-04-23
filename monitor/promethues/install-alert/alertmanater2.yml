@@ -1,0 +1,28 @@
+global:
+  resolve_timeout: 1m
+  smtp_smarthost: 'smtp.139.com:25'
+  smtp_from: '18315293270@139.com'
+  smtp_auth_username: '18315293270@139.com'
+  smtp_auth_password: 'xxxxxxx' # 邮箱密码
+  smtp_require_tls: false
+
+
+route:
+  group_by: ['alertname']
+  #group_wait: 10s
+  #group_interval: 10s
+  #repeat_interval: 1h
+  receiver: 'default-receiver'
+receivers:
+- name: 'default-receiver'
+  email_configs:
+    - to: '286991486@qq.com'
+      send_resolved: true
+ # webhook_configs:
+  #- url: 'http://127.0.0.1:5001/'
+#inhibit_rules:
+  #- source_match:
+  #    severity: 'critical'
+  #  target_match:
+  #    severity: 'warning'
+  #  equal: ['alertname', 'dev', 'instance']
