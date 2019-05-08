@@ -14,6 +14,7 @@
 * 4.修改prometheus.yml，添加配置:remote_write:
   
 ```
+remote_write:
   - url: "http://localhost:9201/write"
 
 remote_read:
