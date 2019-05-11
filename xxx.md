@@ -5,3 +5,4 @@
 * prometheus
 * mysql
 * iptables firewall
+* zabbix
