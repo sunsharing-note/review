@@ -1,4 +1,5 @@
 ```
+参考:https://baijiahao.baidu.com/s?id=1612194635156434300&wfr=spider&for=pc
 文档中缺少 glusterfs volume start volume_name
 1 GlusterFS搭建步骤
 1.1涉及服务器
