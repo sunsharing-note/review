@@ -58,7 +58,7 @@ Like server {
 
 Location / { fastcgi_pass 127.0.01:9001; fastcgi_intercept_errors on; error_page 502 =503/error_page.html; #… }
 12、在Nginx中，解释如何在URL中保留双斜线?
-答：要在URL中保留双斜线，就必须使用merge_slashes_off; 
+答：要在URL中保留双斜线，就必须使用merge_slashes off; 
 
  语法:merge_slashes [on/off] 
 
